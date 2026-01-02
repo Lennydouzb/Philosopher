@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/01 19:37:34 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/02 17:10:30 by ldesboui         ###   ########.fr       */
+/*   Created: 2026/01/02 16:39:46 by ldesboui          #+#    #+#             */
+/*   Updated: 2026/01/02 16:40:28 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosopher.h"
+#include "../../includes/philosopher.h"
 
-int	main(int ac, char **av)
+void	*routine(void *arg)
 {
-	t_table	table;
 
-	if (ac > 4 && ac <= 6)
-	{
-		if (checkav(av) == 0)
-		{
-			printf("Args are not all numerics");
-			return (0);
-		}
-		table = parser(av[1]);	
-	}
-	else
-		printf("too much or not enough args\n");
+	return (NULL);
 }

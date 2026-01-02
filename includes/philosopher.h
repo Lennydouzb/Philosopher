@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:39:20 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/01 21:27:36 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/02 17:02:32 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ typedef struct s_fork
 {
 	unsigned int	nb;
 	pthread_mutex_t	lock;
+	int				valid_mutex;
+	int				islock;
 }	t_fork;
 
 typedef struct s_philo
@@ -34,6 +36,17 @@ typedef struct s_philo
 	unsigned int	nb;
 	
 }	t_philo;
+
+typedef struct s_table
+{
+	t_fork	*forks;
+	t_philo	*philos;
+}	t_table;
 int		ft_atoi(const char *nptr);
 void	*ft_calloc(size_t nmemb, size_t size);
+int		ft_strsisnum(const char *str);
+int		checkav(char **av);
+void	init(t_philo *philos, t_fork *forks, int *nb);
+t_table	parser(char *arg);
+void	freeforksandphilos(t_fork *forks, t_philo *philos);
 #endif

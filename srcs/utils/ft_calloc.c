@@ -6,11 +6,24 @@
 /*   By: ldesboui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 18:17:57 by ldesboui          #+#    #+#             */
-/*   Updated: 2025/10/19 18:04:28 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/02 14:47:33 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/philosopher.h"
+
+static void	*ft_bzero(void *s, size_t n)
+{
+	size_t	number;
+
+	number = 0;
+	while (number < n)
+	{
+		((unsigned char *)s)[number] = '\0';
+		number += 1;
+	}
+	return (s);
+}
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {

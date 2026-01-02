@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/01 19:37:34 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/02 17:10:30 by ldesboui         ###   ########.fr       */
+/*   Created: 2026/01/02 10:49:42 by ldesboui          #+#    #+#             */
+/*   Updated: 2026/01/02 11:16:12 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosopher.h"
+#include "../../includes/philosopher.h"
 
-int	main(int ac, char **av)
+int	checkav(char **av)
 {
-	t_table	table;
-
-	if (ac > 4 && ac <= 6)
+	if (ft_strsisnum(av[1]) == 0)
+		return (0);
+	if (ft_strsisnum(av[2]) == 0)
+		return (0);
+	if (ft_strsisnum(av[3]) == 0)
+		return (0);
+	if (ft_strsisnum(av[4]) == 0)
+		return (0);
+	if (av[5])
 	{
-		if (checkav(av) == 0)
-		{
-			printf("Args are not all numerics");
+		if (ft_strsisnum(av[5]) == 0)
 			return (0);
-		}
-		table = parser(av[1]);	
 	}
-	else
-		printf("too much or not enough args\n");
+	return (1);
 }

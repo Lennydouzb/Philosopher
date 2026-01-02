@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strisnumeric.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/01 19:37:34 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/02 17:10:30 by ldesboui         ###   ########.fr       */
+/*   Created: 2026/01/02 10:40:10 by ldesboui          #+#    #+#             */
+/*   Updated: 2026/01/02 10:42:15 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosopher.h"
+#include "../../includes/philosopher.h"
 
-int	main(int ac, char **av)
+int	ft_strsisnum(const char *str)
 {
-	t_table	table;
+	size_t	i;
 
-	if (ac > 4 && ac <= 6)
+	i = 0;
+	while (str[i])
 	{
-		if (checkav(av) == 0)
-		{
-			printf("Args are not all numerics");
+		if (str[i] < '0' || str[i] > '9')
 			return (0);
-		}
-		table = parser(av[1]);	
+		++i;
 	}
-	else
-		printf("too much or not enough args\n");
+	return (1);
 }

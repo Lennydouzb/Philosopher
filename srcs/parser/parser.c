@@ -6,45 +6,37 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 21:28:06 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/01 21:33:05 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/02 17:04:07 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/philosopher.h"
 
-int	parser(char *arg)
+t_table	parser(char *arg)
 {
 	int		nb;
 	int		i;
 	t_fork	*forks;
 	t_philo	*philos;
+	t_table	table;
 
 	i = 0;
 	nb = ft_atoi(arg);
 	forks = ft_calloc(sizeof(t_fork), nb);
 	if (!forks)
-		return (0);
-	while (i < nb)
-	{
-		forks[i].nb = i;
-		pthread_mutex_init(&(forks[i].lock), NULL);
-		++i;
-	}
-	i = 1;
+		return ((t_table){.forks = NULL});
 	philos = ft_calloc(sizeof(t_philo), nb);
 	if (!philos)
 	{
 		free (forks);
-		return (0);
+		return ((t_table){.forks = NULL});
 	}
-	philos[0].nb = 0;
-	philos[0].lfork = &(forks[0]);
-	while (i < nb)
+	init(philos, forks, &nb);
+	if (forks[i].valid_mutex != 0)
 	{
-		philos[i].nb = i;
-		philos[i].lfork = &(forks[i]);
-		philos[i].rfork = &(forks[i - 1]);
-		++i;
+		freeforksandphilos(forks, philos);
+		return ((t_table){.forks = NULL});
 	}
-	philos[0].rfork = &(forks[i - 1]);
+	table = (t_table){.forks = forks, .philos = philos};
+	return (table);
 }
