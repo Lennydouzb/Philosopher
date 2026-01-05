@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 10:49:42 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/02 11:16:12 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/05 10:49:45 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ int	checkav(char **av)
 		return (0);
 	if (ft_strsisnum(av[4]) == 0)
 		return (0);
-	if (av[5])
-	{
-		if (ft_strsisnum(av[5]) == 0)
-			return (0);
-	}
+	if (!av[5])
+		return (1);
+	if (ft_strsisnum(av[5]) == 0)
+		return (0);
 	return (1);
 }

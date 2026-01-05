@@ -6,13 +6,22 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 21:28:06 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/02 17:04:07 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/05 11:16:05 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/philosopher.h"
 
-t_table	parser(char *arg)
+static t_table	make_table(char **arg, t_fork *forks, t_philo *philos)
+{
+	t_table	table;
+
+	table.forks = forks;
+	table.philos = philos;
+	return (table);
+}
+
+t_table	parser(char **arg)
 {
 	int		nb;
 	int		i;
@@ -21,7 +30,7 @@ t_table	parser(char *arg)
 	t_table	table;
 
 	i = 0;
-	nb = ft_atoi(arg);
+	nb = ft_atoi(arg[1]);
 	forks = ft_calloc(sizeof(t_fork), nb);
 	if (!forks)
 		return ((t_table){.forks = NULL});
@@ -31,12 +40,12 @@ t_table	parser(char *arg)
 		free (forks);
 		return ((t_table){.forks = NULL});
 	}
-	init(philos, forks, &nb);
+	init(philos, forks, arg);
 	if (forks[i].valid_mutex != 0)
 	{
 		freeforksandphilos(forks, philos);
 		return ((t_table){.forks = NULL});
 	}
-	table = (t_table){.forks = forks, .philos = philos};
+	table = make_table(arg, forks, philos);
 	return (table);
 }
