@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 21:28:06 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/05 21:20:26 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/05 22:58:13 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,9 @@ static void	make_table(t_table *table, t_fork *forks, t_philo *philos, char **a)
 int	parser(t_table *table, char **arg)
 {
 	int		nb;
-	int		i;
 	t_fork	*forks;
 	t_philo	*philos;
 
-	i = 0;
 	nb = ft_atoi(arg[1]);
 	table->valid_mu = pthread_mutex_init(&(table->lock), NULL);
 	if (table->valid_mu != 0)
