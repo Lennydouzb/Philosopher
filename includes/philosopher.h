@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:39:20 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/05 16:36:34 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/05 18:30:08 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct s_table
 	pthread_mutex_t lock;
 	int				valid_mu;
 	int				running;
+	pthread_mutex_t lockrun;
+	int				valid_lockrun;
 }	t_table;
 int			ft_atoi(const char *nptr);
 void		*ft_calloc(size_t nmemb, size_t size);
