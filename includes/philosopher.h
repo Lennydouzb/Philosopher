@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:39:20 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/05 11:15:46 by root             ###   ########.fr       */
+/*   Updated: 2026/01/05 16:36:34 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ typedef struct s_fork
 	unsigned int	nb;
 	pthread_mutex_t	lock;
 	int				valid_mutex;
-	int				islock;
 }	t_fork;
 
 typedef struct s_philo
@@ -38,20 +37,32 @@ typedef struct s_philo
 	int				ttd;
 	int				tte;
 	int				tts;
-	int				musteat;	
+	int				musteat;
+	long long		lasteat;
+	struct s_table	*table;
 }	t_philo;
 
 typedef struct s_table
 {
-	t_fork	*forks;
-	t_philo	*philos;
-
+	t_fork			*forks;
+	t_philo			*philos;
+	pthread_t		monitor;
+	pthread_mutex_t lock;
+	int				valid_mu;
+	int				running;
 }	t_table;
-int		ft_atoi(const char *nptr);
-void	*ft_calloc(size_t nmemb, size_t size);
-int		ft_strsisnum(const char *str);
-int		checkav(char **av);
-void	init(t_philo *philos, t_fork *forks, char **arg);
-t_table	parser(char **arg);
-void	freeforksandphilos(t_fork *forks, t_philo *philos);
+int			ft_atoi(const char *nptr);
+void		*ft_calloc(size_t nmemb, size_t size);
+int			ft_strsisnum(const char *str);
+int			checkav(char **av);
+void		init(t_philo *philos, t_fork *forks, char **arg, t_table *table);
+int		parser(t_table *table, char **arg);
+void		freeforksandphilos(t_fork *forks, t_philo *philos);
+void		updateeat(t_philo *philo);
+void		launch_routine(t_table	*table);
+int			checkeat(t_philo *philo);
+void		print(int type, int nb, t_philo *phi);
+long long	get_time_in_ms(void);
+void		*monitor_routine(void *arg);
+void		jointhreads(t_table *table);
 #endif

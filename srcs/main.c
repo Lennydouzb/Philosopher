@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:37:34 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/05 10:02:41 by root             ###   ########.fr       */
+/*   Updated: 2026/01/05 17:17:39 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,15 @@ int	main(int ac, char **av)
 			printf("Args are not all numerics\n");
 			return (0);
 		}
-		table = parser(av[1]);
+		parser(&table, av);
 		if (table.forks == NULL)
 		{
 			printf("Error during launch\n");
 			return (0);
 		}
+		launch_routine(&table);
+		pthread_create(&(table.monitor), NULL, monitor_routine, &table);
+		jointhreads(&table);
 	}
 	else
 		printf("too much or not enough args\n");

@@ -8,9 +8,13 @@ SRCS = srcs/main.c \
 	   srcs/parser/check.c \
 	   srcs/parser/init.c \
 	   srcs/parser/parser.c \
+	   srcs/threads/routine.c \
 	   srcs/utils/ft_atoi.c \
 	   srcs/utils/ft_calloc.c \
 	   srcs/utils/ft_strisnumeric.c \
+	   srcs/time/time.c \
+	   srcs/threads/join.c \
+	   srcs/threads/monitor.c \
 
 
 
