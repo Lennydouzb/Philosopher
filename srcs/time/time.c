@@ -6,15 +6,19 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 15:39:26 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/05 16:25:43 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/05 20:40:19 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/philosopher.h"
+#include <pthread.h>
 
 void	updateeat(t_philo *philo)
 {
 	philo->lasteat = get_time_in_ms();
+	pthread_mutex_lock(&(philo->lockeat));
+	philo->has_ate += 1;
+	pthread_mutex_unlock(&(philo->lockeat));
 }
 
 int	checkeat(t_philo *philo)

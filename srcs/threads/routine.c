@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 16:39:46 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/05 19:02:09 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/05 21:25:58 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	check_run(t_philo *philo)
 {
 	int	a;
 
+	if (!philo || !philo->table)
+		return (0);
 	pthread_mutex_lock(&(philo->table->lockrun));
 	a = philo->table->running;
 	pthread_mutex_unlock(&(philo->table->lockrun));
@@ -52,6 +54,13 @@ static void	*routine(void *arg)
 		}
 		if (((t_philo *)arg)->state == 2 && check_run(((t_philo *)arg)) == 1)
 		{
+			if (((t_philo *)arg)->lfork == ((t_philo *)arg)->rfork)
+			{
+				pthread_mutex_lock(&(((t_philo *)arg)->lfork->lock));
+				((t_philo *)arg)->lhandedf = ((t_philo *)arg)->lfork;
+				print(2, ((t_philo *)arg)->nb, (t_philo *)arg);
+				return (NULL);
+			}
 			if (((t_philo *)arg)->nb % 2 == 0)
 			{
 				pthread_mutex_lock(&(((t_philo *)arg)->lfork->lock));

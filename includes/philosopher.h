@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:39:20 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/05 18:30:08 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/05 21:09:29 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ typedef struct s_philo
 	int				ttd;
 	int				tte;
 	int				tts;
-	int				musteat;
 	long long		lasteat;
+	int				has_ate;
+	pthread_mutex_t lockeat;
+	int				valid_eat;
 	struct s_table	*table;
 }	t_philo;
 
@@ -51,6 +53,7 @@ typedef struct s_table
 	int				valid_mu;
 	int				running;
 	pthread_mutex_t lockrun;
+	int				musteat;
 	int				valid_lockrun;
 }	t_table;
 int			ft_atoi(const char *nptr);
@@ -67,4 +70,6 @@ void		print(int type, int nb, t_philo *phi);
 long long	get_time_in_ms(void);
 void		*monitor_routine(void *arg);
 void		jointhreads(t_table *table);
+void		freeeverything(t_table *table, char **arg);
+int			check_mutexes(t_table *table, char **arg);
 #endif
