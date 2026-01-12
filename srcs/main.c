@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:37:34 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/05 21:05:24 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/12 21:02:08 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int ac, char **av)
 	{
 		if (checkav(av) == 0)
 		{
-			printf("Args are not all numerics\n");
+			printf("Args should ne numeric, and at least one philo bozo\n");
 			return (0);
 		}
 		ok = parser(&table, av);

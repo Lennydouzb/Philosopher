@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 16:39:46 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/12 15:19:29 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/12 21:07:48 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	grab_forks(t_philo *philo)
 	t_fork	*lfork;
 	t_fork	*rfork;
 
-	if (philo->nb % 2 == 1)
+	if (philo->nb % 2 == 0)
 	{
 		lfork = philo->lfork;
 		rfork = philo->rfork;
@@ -83,11 +83,13 @@ static void	*routine(void *arg)
 {
 	int	valid;
 
+	if (((t_philo *)arg)->nb % 2 == 0)
+		usleep((double)((t_philo *)arg)->tte * 1000);
 	while (check_run(((t_philo *)arg)) == 1)
 	{
 		print(1, ((t_philo *)arg)->nb, ((t_philo *)arg));
 		valid = grab_forks(((t_philo *)arg));
-		if (valid ==0)
+		if (valid == 0)
 			return (NULL);
 		print(3, ((t_philo *)arg)->nb, ((t_philo *)arg));
 		updateeat(((t_philo *)arg));
