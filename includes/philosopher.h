@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:39:20 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/05 21:09:29 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/12 12:05:40 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_philo
 	t_fork			*rfork;
 	t_fork			*lhandedf;
 	t_fork			*rhandedf;
-	pthread_t       thread_id;
+	pthread_t		thread_id;
 	unsigned int	nb;
 	int				state;
 	int				ttd;
@@ -39,8 +39,10 @@ typedef struct s_philo
 	int				tts;
 	long long		lasteat;
 	int				has_ate;
-	pthread_mutex_t lockeat;
+	pthread_mutex_t	lockeat;
 	int				valid_eat;
+	pthread_mutex_t	locklasteat;
+	int				valid_lasteat;
 	struct s_table	*table;
 }	t_philo;
 
@@ -55,6 +57,9 @@ typedef struct s_table
 	pthread_mutex_t lockrun;
 	int				musteat;
 	int				valid_lockrun;
+	long long		start_hour;
+	pthread_mutex_t	mu_hour;
+	int				valid_hour;
 }	t_table;
 int			ft_atoi(const char *nptr);
 void		*ft_calloc(size_t nmemb, size_t size);
@@ -72,4 +77,5 @@ void		*monitor_routine(void *arg);
 void		jointhreads(t_table *table);
 void		freeeverything(t_table *table, char **arg);
 int			check_mutexes(t_table *table, char **arg);
+long long	get_relative_time(t_philo *phil);
 #endif

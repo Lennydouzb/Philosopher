@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 16:39:46 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/05 21:25:58 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/12 12:07:08 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,20 @@ void	print(int type, int nb, t_philo *phi)
 {
 	pthread_mutex_lock(&(phi->table->lock));
 	if (type == 1)
-		printf("%lld %d is thinking\n", get_time_in_ms(), nb);
+		printf("%lld %d is thinking\n", get_relative_time(phi), nb);
 	if (type == 2)
-		printf("%lld %d has taken a fork\n", get_time_in_ms(), nb);
+		printf("%lld %d has taken a fork\n", get_relative_time(phi), nb);
 	if (type == 3)
-		printf("%lld %d is eating\n", get_time_in_ms(), nb);
+		printf("%lld %d is eating\n", get_relative_time(phi), nb);
 	if (type == 4)
-		printf("%lld %d is sleeping\n", get_time_in_ms(), nb);
+		printf("%lld %d is sleeping\n", get_relative_time(phi), nb);
 	if (type == 5)
-		printf("%lld %d died\n", get_time_in_ms(), nb);
+		printf("%lld %d died\n", get_relative_time(phi), nb);
 	pthread_mutex_unlock(&(phi->table->lock));
 }
 
 static void	*routine(void *arg)
 {
-	if (((t_philo *)arg)->nb % 2 == 0)
-		usleep(((t_philo *)arg)->ttd / 10);
 	while (1 && check_run(((t_philo *)arg)) == 1)
 	{
 		if (((t_philo *)arg)->state == 0 && check_run(((t_philo *)arg)) == 1)
@@ -106,10 +104,13 @@ void	launch_routine(t_table	*table)
 	int	i;
 
 	i = 0;
+	pthread_mutex_lock(&(table->mu_hour));
+	table->start_hour = get_time_in_ms();
+	pthread_mutex_unlock(&(table->mu_hour));
 	while (table->philos[i].lfork != NULL)
 	{
 		pthread_create(&(table->philos[i].thread_id), NULL, routine,
-				 &(table->philos[i]));
+			&(table->philos[i]));
 		++i;
 	}
 }
