@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 16:39:46 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/12 12:07:08 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/12 15:19:29 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,72 +28,76 @@ int	check_run(t_philo *philo)
 void	print(int type, int nb, t_philo *phi)
 {
 	pthread_mutex_lock(&(phi->table->lock));
-	if (type == 1)
+	if (check_run(phi) == 1 && type == 1)
 		printf("%lld %d is thinking\n", get_relative_time(phi), nb);
-	if (type == 2)
+	if (check_run(phi) == 1 && type == 2)
 		printf("%lld %d has taken a fork\n", get_relative_time(phi), nb);
-	if (type == 3)
+	if (check_run(phi) == 1 && type == 3)
 		printf("%lld %d is eating\n", get_relative_time(phi), nb);
-	if (type == 4)
+	if (check_run(phi) == 1 && type == 4)
 		printf("%lld %d is sleeping\n", get_relative_time(phi), nb);
-	if (type == 5)
+	if (check_run(phi) == 1 && type == 5)
 		printf("%lld %d died\n", get_relative_time(phi), nb);
 	pthread_mutex_unlock(&(phi->table->lock));
 }
 
+static int	grab_forks(t_philo *philo)
+{
+	t_fork	*lfork;
+	t_fork	*rfork;
+
+	if (philo->nb % 2 == 1)
+	{
+		lfork = philo->lfork;
+		rfork = philo->rfork;
+	}
+	else
+	{
+		lfork = philo->rfork;
+		rfork = philo->lfork;
+	}
+	if (check_run(philo) && philo->lfork != philo->rfork)
+	{
+		pthread_mutex_lock(&(lfork->lock));
+		print (2, philo->nb, philo);
+		if (check_run(philo))
+		{
+			pthread_mutex_lock(&(rfork->lock));
+			print (2, philo->nb, philo);
+		}
+		else
+		{
+			pthread_mutex_unlock(&(lfork->lock));
+			return (0);
+		}
+	}
+	else
+	{
+		print (2, philo->nb, philo);
+		return (0);
+	}
+	return (1);
+}
+
 static void	*routine(void *arg)
 {
-	while (1 && check_run(((t_philo *)arg)) == 1)
+	int	valid;
+
+	while (check_run(((t_philo *)arg)) == 1)
 	{
-		if (((t_philo *)arg)->state == 0 && check_run(((t_philo *)arg)) == 1)
+		print(1, ((t_philo *)arg)->nb, ((t_philo *)arg));
+		valid = grab_forks(((t_philo *)arg));
+		if (valid ==0)
+			return (NULL);
+		print(3, ((t_philo *)arg)->nb, ((t_philo *)arg));
+		updateeat(((t_philo *)arg));
+		usleep(((t_philo *)arg)->tte * 1000);
+		pthread_mutex_unlock(&(((t_philo *)arg)->lfork->lock));
+		pthread_mutex_unlock(&(((t_philo *)arg)->rfork->lock));
+		if (check_run(((t_philo *)arg)))
 		{
-			print(1, ((t_philo *)arg)->nb, (t_philo *)arg);
-			((t_philo *)arg)->state = 2;
-		}
-		if (((t_philo *)arg)->state == 2 && check_run(((t_philo *)arg)) == 1)
-		{
-			if (((t_philo *)arg)->lfork == ((t_philo *)arg)->rfork)
-			{
-				pthread_mutex_lock(&(((t_philo *)arg)->lfork->lock));
-				((t_philo *)arg)->lhandedf = ((t_philo *)arg)->lfork;
-				print(2, ((t_philo *)arg)->nb, (t_philo *)arg);
-				return (NULL);
-			}
-			if (((t_philo *)arg)->nb % 2 == 0)
-			{
-				pthread_mutex_lock(&(((t_philo *)arg)->lfork->lock));
-				((t_philo *)arg)->lhandedf = ((t_philo *)arg)->lfork;
-				print(2, ((t_philo *)arg)->nb, (t_philo *)arg);
-				pthread_mutex_lock(&(((t_philo *)arg)->rfork->lock));
-				((t_philo *)arg)->rhandedf = ((t_philo *)arg)->rfork;
-				print(2, ((t_philo *)arg)->nb, (t_philo *)arg);
-			}
-			else
-			{
-				pthread_mutex_lock(&(((t_philo *)arg)->rfork->lock));
-				((t_philo *)arg)->rhandedf = ((t_philo *)arg)->rfork;
-				print(2, ((t_philo *)arg)->nb, (t_philo *)arg);
-				pthread_mutex_lock(&(((t_philo *)arg)->lfork->lock));
-				((t_philo *)arg)->lhandedf = ((t_philo *)arg)->lfork;
-				print(2, ((t_philo *)arg)->nb, (t_philo *)arg);
-			}
-		}
-		if (((t_philo *)arg)->lhandedf && ((t_philo *)arg)->rhandedf && check_run(((t_philo *)arg)) == 1)
-		{
-			print(3, ((t_philo *)arg)->nb, (t_philo *)arg);
-			usleep(((t_philo *)arg)->tte * 1000);
-			updateeat(((t_philo *)arg));
-			((t_philo *)arg)->rhandedf = NULL;
-			pthread_mutex_unlock(&(((t_philo *)arg)->rfork->lock));
-			((t_philo *)arg)->lhandedf = NULL;
-			pthread_mutex_unlock(&(((t_philo *)arg)->lfork->lock));
-			((t_philo *)arg)->state = 1;
-		}
-		if (((t_philo *)arg)->state == 1 && check_run(((t_philo *)arg)) == 1)
-		{
-			print(4, ((t_philo *)arg)->nb, (t_philo *)arg);
+			print(4, ((t_philo *)arg)->nb, ((t_philo *)arg));
 			usleep(((t_philo *)arg)->tts * 1000);
-			((t_philo *)arg)->state = 0;
 		}
 	}
 	return (NULL);
@@ -109,6 +113,7 @@ void	launch_routine(t_table	*table)
 	pthread_mutex_unlock(&(table->mu_hour));
 	while (table->philos[i].lfork != NULL)
 	{
+		updateeat(&(table->philos[i]));
 		pthread_create(&(table->philos[i].thread_id), NULL, routine,
 			&(table->philos[i]));
 		++i;

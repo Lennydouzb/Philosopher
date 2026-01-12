@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:39:20 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/12 12:05:40 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/12 14:33:50 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,8 @@ typedef struct s_philo
 {
 	t_fork			*lfork;
 	t_fork			*rfork;
-	t_fork			*lhandedf;
-	t_fork			*rhandedf;
 	pthread_t		thread_id;
 	unsigned int	nb;
-	int				state;
 	int				ttd;
 	int				tte;
 	int				tts;

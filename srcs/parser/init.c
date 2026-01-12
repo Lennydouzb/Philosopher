@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 14:00:08 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/12 11:33:18 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/12 15:05:27 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	initfirstphilo(t_philo *philo, t_fork *forks, char **arg)
 	philo->ttd = ft_atoi(arg[2]);
 	philo->tte = ft_atoi(arg[3]);
 	philo->tts = ft_atoi(arg[4]);
-	philo->state = 0;
 	philo->valid_eat = pthread_mutex_init(&(philo->lockeat), NULL);
 	if (philo->valid_eat != 0)
 		return ;
@@ -30,7 +29,6 @@ static void	initfirstphilo(t_philo *philo, t_fork *forks, char **arg)
 		pthread_mutex_destroy(&(philo->lockeat));
 		return ;
 	}
-	updateeat(philo);
 }
 
 static void	initphilos(t_philo *philo, t_fork *forks, char **arg, int i)
@@ -41,7 +39,6 @@ static void	initphilos(t_philo *philo, t_fork *forks, char **arg, int i)
 	philo->ttd = ft_atoi(arg[2]);
 	philo->tte = ft_atoi(arg[3]);
 	philo->tts = ft_atoi(arg[4]);
-	philo->state = 0;
 	philo->valid_eat = pthread_mutex_init(&(philo->lockeat), NULL);
 	if (philo->valid_eat != 0)
 		return ;
@@ -51,7 +48,6 @@ static void	initphilos(t_philo *philo, t_fork *forks, char **arg, int i)
 		pthread_mutex_destroy(&(philo->lockeat));
 		return ;
 	}
-	updateeat(philo);
 }
 
 void	init(t_philo *philos, t_fork *forks, char **arg, t_table *table)
