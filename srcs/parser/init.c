@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 14:00:08 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/12 20:58:28 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/13 11:08:06 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static void	initfirstphilo(t_philo *philo, t_fork *forks, char **arg)
 {
 	philo->nb = 1;
-	philo->lfork = &(forks[0]);
+	philo->rfork = &(forks[0]);
 	philo->ttd = ft_atoi(arg[2]);
 	philo->tte = ft_atoi(arg[3]);
 	philo->tts = ft_atoi(arg[4]);
@@ -66,6 +66,7 @@ void	init(t_philo *philos, t_fork *forks, char **arg, t_table *table)
 	i = 1;
 	initfirstphilo(&(philos[0]), forks, arg);
 	philos[0].table = table;
+	table->nb_philo = ft_atoi(arg[1]);
 	while (i < ft_atoi(arg[1]))
 	{
 		initphilos(&(philos[i]), forks, arg, i);
@@ -73,5 +74,5 @@ void	init(t_philo *philos, t_fork *forks, char **arg, t_table *table)
 		++i;
 	}
 	philos[i].lfork = NULL;
-	philos[0].rfork = &(forks[i - 1]);
+	philos[0].lfork = &(forks[i - 1]);
 }

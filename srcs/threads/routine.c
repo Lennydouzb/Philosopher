@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 16:39:46 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/12 21:07:48 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/13 11:13:43 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,31 +43,18 @@ void	print(int type, int nb, t_philo *phi)
 
 static int	grab_forks(t_philo *philo)
 {
-	t_fork	*lfork;
-	t_fork	*rfork;
-
-	if (philo->nb % 2 == 0)
-	{
-		lfork = philo->lfork;
-		rfork = philo->rfork;
-	}
-	else
-	{
-		lfork = philo->rfork;
-		rfork = philo->lfork;
-	}
 	if (check_run(philo) && philo->lfork != philo->rfork)
 	{
-		pthread_mutex_lock(&(lfork->lock));
+		pthread_mutex_lock(&(philo->lfork->lock));
 		print (2, philo->nb, philo);
 		if (check_run(philo))
 		{
-			pthread_mutex_lock(&(rfork->lock));
+			pthread_mutex_lock(&(philo->rfork->lock));
 			print (2, philo->nb, philo);
 		}
 		else
 		{
-			pthread_mutex_unlock(&(lfork->lock));
+			pthread_mutex_unlock(&(philo->lfork->lock));
 			return (0);
 		}
 	}
@@ -83,8 +70,6 @@ static void	*routine(void *arg)
 {
 	int	valid;
 
-	if (((t_philo *)arg)->nb % 2 == 0)
-		usleep((double)((t_philo *)arg)->tte * 1000);
 	while (check_run(((t_philo *)arg)) == 1)
 	{
 		print(1, ((t_philo *)arg)->nb, ((t_philo *)arg));
@@ -96,6 +81,7 @@ static void	*routine(void *arg)
 		usleep(((t_philo *)arg)->tte * 1000);
 		pthread_mutex_unlock(&(((t_philo *)arg)->lfork->lock));
 		pthread_mutex_unlock(&(((t_philo *)arg)->rfork->lock));
+		usleep(500);
 		if (check_run(((t_philo *)arg)))
 		{
 			print(4, ((t_philo *)arg)->nb, ((t_philo *)arg));

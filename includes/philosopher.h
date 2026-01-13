@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:39:20 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/12 14:33:50 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/13 11:05:57 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,23 @@ typedef struct s_table
 	t_fork			*forks;
 	t_philo			*philos;
 	pthread_t		monitor;
-	pthread_mutex_t lock;
+	pthread_mutex_t	lock;
 	int				valid_mu;
 	int				running;
-	pthread_mutex_t lockrun;
+	pthread_mutex_t	lockrun;
 	int				musteat;
 	int				valid_lockrun;
 	long long		start_hour;
 	pthread_mutex_t	mu_hour;
 	int				valid_hour;
+	int				nb_philo;
 }	t_table;
 int			ft_atoi(const char *nptr);
 void		*ft_calloc(size_t nmemb, size_t size);
 int			ft_strsisnum(const char *str);
 int			checkav(char **av);
 void		init(t_philo *philos, t_fork *forks, char **arg, t_table *table);
-int		parser(t_table *table, char **arg);
+int			parser(t_table *table, char **arg);
 void		freeforksandphilos(t_fork *forks, t_philo *philos);
 void		updateeat(t_philo *philo);
 void		launch_routine(t_table	*table);
