@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:37:34 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/12 21:02:08 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/13 13:43:29 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	main(int ac, char **av)
 			return (0);
 		}
 		launch_routine(&table);
-		pthread_create(&(table.monitor), NULL, monitor_routine, &table);
 		jointhreads(&table);
 	}
 	else

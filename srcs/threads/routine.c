@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 16:39:46 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/13 13:21:22 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/13 13:43:23 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,16 +100,19 @@ void	launch_routine(t_table	*table)
 	int	i;
 
 	i = 0;
-	pthread_mutex_lock(&(table->lockstart));
 	pthread_mutex_lock(&(table->mu_hour));
 	table->start_hour = get_time_in_ms();
 	pthread_mutex_unlock(&(table->mu_hour));
+	pthread_mutex_lock(&(table->lockstart));
 	while (table->philos[i].lfork != NULL)
 	{
-		updateeat(&(table->philos[i]));
+		pthread_mutex_lock(&(table->philos[i].locklasteat));
+		table->philos[i].lasteat = table->start_hour;
+		pthread_mutex_unlock(&(table->philos[i].locklasteat));
 		pthread_create(&(table->philos[i].thread_id), NULL, routine,
 			&(table->philos[i]));
 		++i;
 	}
 	pthread_mutex_unlock(&(table->lockstart));
+	pthread_create(&(table->monitor), NULL, monitor_routine, &table);
 }
