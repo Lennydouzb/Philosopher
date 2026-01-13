@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 16:39:46 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/13 11:13:43 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/13 11:30:20 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ static void	*routine(void *arg)
 		usleep(((t_philo *)arg)->tte * 1000);
 		pthread_mutex_unlock(&(((t_philo *)arg)->lfork->lock));
 		pthread_mutex_unlock(&(((t_philo *)arg)->rfork->lock));
-		usleep(500);
 		if (check_run(((t_philo *)arg)))
 		{
 			print(4, ((t_philo *)arg)->nb, ((t_philo *)arg));
