@@ -6,11 +6,12 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 21:28:06 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/12 11:57:42 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/13 13:12:02 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/philosopher.h"
+#include <pthread.h>
 
 static void	make_table(t_table *table, t_fork *forks, t_philo *philos, char **a)
 {
@@ -48,12 +49,21 @@ int	parser(t_table *table, char **arg)
 		pthread_mutex_destroy(&(table->lockrun));
 		return (0);
 	}
+	table->validlockstart = pthread_mutex_init(&(table->lockstart), NULL);
+	if (table->validlockstart != 0)
+	{
+		pthread_mutex_destroy(&(table->lock));
+		pthread_mutex_destroy(&(table->lockrun));
+		pthread_mutex_destroy(&(table->mu_hour));
+		return (0);
+	}
 	forks = ft_calloc(sizeof(t_fork), nb + 1);
 	if (!forks)
 	{
 		pthread_mutex_destroy(&(table->lockrun));
 		pthread_mutex_destroy(&(table->lock));
 		pthread_mutex_destroy(&(table->mu_hour));
+		pthread_mutex_destroy(&(table->lockstart));
 		return (0);
 	}
 	philos = ft_calloc(sizeof(t_philo), nb + 1);
@@ -63,11 +73,10 @@ int	parser(t_table *table, char **arg)
 		pthread_mutex_destroy(&(table->lock));
 		pthread_mutex_destroy(&(table->lockrun));
 		pthread_mutex_destroy(&(table->mu_hour));
+		pthread_mutex_destroy(&(table->lockstart));
 		return (0);
 	}
 	init(philos, forks, arg, table);
 	make_table(table, forks, philos, arg);
-	if (check_mutexes(table, arg) == 0)
-		return (0);
 	return (1);
 }

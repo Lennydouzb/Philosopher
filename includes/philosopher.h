@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:39:20 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/13 11:05:57 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/13 13:12:18 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ typedef struct s_table
 	pthread_mutex_t	mu_hour;
 	int				valid_hour;
 	int				nb_philo;
+	pthread_mutex_t	lockstart;
+	int				validlockstart;
 }	t_table;
 int			ft_atoi(const char *nptr);
 void		*ft_calloc(size_t nmemb, size_t size);
@@ -74,6 +76,5 @@ long long	get_time_in_ms(void);
 void		*monitor_routine(void *arg);
 void		jointhreads(t_table *table);
 void		freeeverything(t_table *table, char **arg);
-int			check_mutexes(t_table *table, char **arg);
 long long	get_relative_time(t_philo *phil);
 #endif

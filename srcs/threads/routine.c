@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 16:39:46 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/13 11:30:20 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/13 13:21:22 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,12 @@ static void	*routine(void *arg)
 {
 	int	valid;
 
+	pthread_mutex_lock(&((t_philo *)arg)->table->lockstart);
+	pthread_mutex_unlock(&((t_philo *)arg)->table->lockstart);
 	while (check_run(((t_philo *)arg)) == 1)
 	{
+		if (((t_philo *)arg)->nb % 2 == 1)
+			usleep(500);
 		print(1, ((t_philo *)arg)->nb, ((t_philo *)arg));
 		valid = grab_forks(((t_philo *)arg));
 		if (valid == 0)
@@ -81,6 +85,7 @@ static void	*routine(void *arg)
 		usleep(((t_philo *)arg)->tte * 1000);
 		pthread_mutex_unlock(&(((t_philo *)arg)->lfork->lock));
 		pthread_mutex_unlock(&(((t_philo *)arg)->rfork->lock));
+		usleep(500);
 		if (check_run(((t_philo *)arg)))
 		{
 			print(4, ((t_philo *)arg)->nb, ((t_philo *)arg));
@@ -95,6 +100,7 @@ void	launch_routine(t_table	*table)
 	int	i;
 
 	i = 0;
+	pthread_mutex_lock(&(table->lockstart));
 	pthread_mutex_lock(&(table->mu_hour));
 	table->start_hour = get_time_in_ms();
 	pthread_mutex_unlock(&(table->mu_hour));
@@ -105,4 +111,5 @@ void	launch_routine(t_table	*table)
 			&(table->philos[i]));
 		++i;
 	}
+	pthread_mutex_unlock(&(table->lockstart));
 }
