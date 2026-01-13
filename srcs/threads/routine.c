@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 16:39:46 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/13 13:43:23 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/13 14:19:17 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	*routine(void *arg)
 	while (check_run(((t_philo *)arg)) == 1)
 	{
 		if (((t_philo *)arg)->nb % 2 == 1)
-			usleep(500);
+			usleep(1000);
 		print(1, ((t_philo *)arg)->nb, ((t_philo *)arg));
 		valid = grab_forks(((t_philo *)arg));
 		if (valid == 0)
@@ -113,6 +113,6 @@ void	launch_routine(t_table	*table)
 			&(table->philos[i]));
 		++i;
 	}
+	pthread_create(&(table->monitor), NULL, monitor_routine, table);
 	pthread_mutex_unlock(&(table->lockstart));
-	pthread_create(&(table->monitor), NULL, monitor_routine, &table);
 }

@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 15:28:01 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/13 11:32:50 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/13 14:12:49 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	*monitor_routine(void *arg)
 
 	flag = 1;
 	i = 0;
+	pthread_mutex_lock(&((t_table *)arg)->lockstart);
+	pthread_mutex_unlock(&((t_table *)arg)->lockstart);
 	while (flag == 1)
 	{
 		flag = checkallphilos(((t_table *)arg));
