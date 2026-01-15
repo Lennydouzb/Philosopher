@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 14:00:08 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/13 11:34:23 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/15 19:07:56 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ static void	initfirstphilo(t_philo *philo, t_fork *forks, char **arg)
 		return ;
 	philo->valid_lasteat = pthread_mutex_init(&(philo->locklasteat), NULL);
 	if (philo->valid_lasteat != 0)
-	{
-		pthread_mutex_destroy(&(philo->lockeat));
 		return ;
-	}
 }
 
 static void	initphilos(t_philo *philo, t_fork *forks, char **arg, int i)
@@ -44,10 +41,7 @@ static void	initphilos(t_philo *philo, t_fork *forks, char **arg, int i)
 		return ;
 	philo->valid_lasteat = pthread_mutex_init(&(philo->locklasteat), NULL);
 	if (philo->valid_lasteat != 0)
-	{
-		pthread_mutex_destroy(&(philo->lockeat));
 		return ;
-	}
 }
 
 void	init(t_philo *philos, t_fork *forks, char **arg, t_table *table)

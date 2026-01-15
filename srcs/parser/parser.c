@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 21:28:06 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/13 13:12:02 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/15 19:11:38 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,54 +28,25 @@ static void	make_table(t_table *table, t_fork *forks, t_philo *philos, char **a)
 
 int	parser(t_table *table, char **arg)
 {
-	int		nb;
 	t_fork	*forks;
 	t_philo	*philos;
 
-	nb = ft_atoi(arg[1]);
+	forks = ft_calloc(sizeof(t_fork), ft_atoi(arg[1]) + 1);
+	philos = ft_calloc(sizeof(t_philo), ft_atoi(arg[1]) + 1);
+	if (!philos || !forks)
+		return (0);
 	table->valid_mu = pthread_mutex_init(&(table->lock), NULL);
 	if (table->valid_mu != 0)
 		return (0);
 	table->valid_lockrun = pthread_mutex_init(&(table->lockrun), NULL);
 	if (table->valid_lockrun != 0)
-	{
-		pthread_mutex_destroy(&(table->lock));
 		return (0);
-	}
 	table->valid_hour = pthread_mutex_init(&(table->mu_hour), NULL);
 	if (table->valid_hour != 0)
-	{
-		pthread_mutex_destroy(&(table->lock));
-		pthread_mutex_destroy(&(table->lockrun));
 		return (0);
-	}
 	table->validlockstart = pthread_mutex_init(&(table->lockstart), NULL);
 	if (table->validlockstart != 0)
-	{
-		pthread_mutex_destroy(&(table->lock));
-		pthread_mutex_destroy(&(table->lockrun));
-		pthread_mutex_destroy(&(table->mu_hour));
 		return (0);
-	}
-	forks = ft_calloc(sizeof(t_fork), nb + 1);
-	if (!forks)
-	{
-		pthread_mutex_destroy(&(table->lockrun));
-		pthread_mutex_destroy(&(table->lock));
-		pthread_mutex_destroy(&(table->mu_hour));
-		pthread_mutex_destroy(&(table->lockstart));
-		return (0);
-	}
-	philos = ft_calloc(sizeof(t_philo), nb + 1);
-	if (!philos)
-	{
-		free (forks);
-		pthread_mutex_destroy(&(table->lock));
-		pthread_mutex_destroy(&(table->lockrun));
-		pthread_mutex_destroy(&(table->mu_hour));
-		pthread_mutex_destroy(&(table->lockstart));
-		return (0);
-	}
 	init(philos, forks, arg, table);
 	make_table(table, forks, philos, arg);
 	return (1);

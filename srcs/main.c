@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:37:34 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/13 13:43:29 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/15 19:13:06 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@ int	main(int ac, char **av)
 		ok = parser(&table, av);
 		if (ok != 1)
 		{
-			freeeverything(&table, av);
+			destroy(&table);
 			printf("Error during launch\n");
 			return (0);
 		}
 		launch_routine(&table);
 		jointhreads(&table);
+		destroy(&table);
 	}
 	else
 		printf("too much or not enough args\n");

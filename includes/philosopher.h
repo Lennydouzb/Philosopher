@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:39:20 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/13 13:12:18 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/15 18:56:57 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <pthread.h>
 # include <sys/time.h>
+
 typedef struct s_fork
 {
 	unsigned int	nb;
@@ -77,4 +78,5 @@ void		*monitor_routine(void *arg);
 void		jointhreads(t_table *table);
 void		freeeverything(t_table *table, char **arg);
 long long	get_relative_time(t_philo *phil);
+void		destroy(t_table *table);
 #endif
