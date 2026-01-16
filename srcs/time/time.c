@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 15:39:26 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/12 13:41:10 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/16 23:56:40 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,16 @@ long long	get_time_in_ms(void)
 
 	gettimeofday(&t, NULL);
 	return ((long long)((t.tv_sec * 1000) + (t.tv_usec / 1000)));
+}
+
+void	better_sleep(t_philo *philo, long long time)
+{
+	long long	slept;
+
+	slept = 0;
+	while (check_run(philo) == 1 && slept < time)
+	{
+		usleep(1000);
+		slept += 1000;
+	}
 }

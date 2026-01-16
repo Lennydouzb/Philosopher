@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 10:40:10 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/02 10:42:15 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/16 23:37:41 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_strsisnum(const char *str)
 	size_t	i;
 
 	i = 0;
+	if (str[0] == '-')
+		return (0);
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
