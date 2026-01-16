@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 16:39:46 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/13 14:19:17 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/16 12:57:06 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	*routine(void *arg)
 	pthread_mutex_unlock(&((t_philo *)arg)->table->lockstart);
 	while (check_run(((t_philo *)arg)) == 1)
 	{
-		if (((t_philo *)arg)->nb % 2 == 1)
+		if (((t_philo *)arg)->nb % 2 == 0)
 			usleep(1000);
 		print(1, ((t_philo *)arg)->nb, ((t_philo *)arg));
 		valid = grab_forks(((t_philo *)arg));
@@ -85,7 +85,6 @@ static void	*routine(void *arg)
 		usleep(((t_philo *)arg)->tte * 1000);
 		pthread_mutex_unlock(&(((t_philo *)arg)->lfork->lock));
 		pthread_mutex_unlock(&(((t_philo *)arg)->rfork->lock));
-		usleep(500);
 		if (check_run(((t_philo *)arg)))
 		{
 			print(4, ((t_philo *)arg)->nb, ((t_philo *)arg));
