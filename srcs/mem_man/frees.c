@@ -6,11 +6,12 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 14:36:04 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/15 19:13:36 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/16 19:43:33 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/philosopher.h"
+#include <bits/pthreadtypes.h>
 #include <pthread.h>
 
 void	freeforksandphilos(t_fork *forks, t_philo *philos)
@@ -22,7 +23,9 @@ void	freeforksandphilos(t_fork *forks, t_philo *philos)
 void	smartdestroy(void *ptr)
 {
 	if (ptr != NULL)
+	{
 		pthread_mutex_destroy((pthread_mutex_t *)ptr);
+	}
 }
 
 void	destroy(t_table *table)

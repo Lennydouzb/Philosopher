@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 16:39:46 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/16 12:57:06 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/16 19:43:13 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void	print(int type, int nb, t_philo *phi)
 	pthread_mutex_lock(&(phi->table->lock));
 	if (check_run(phi) == 1 && type == 1)
 		printf("%lld %d is thinking\n", get_relative_time(phi), nb);
-	if (check_run(phi) == 1 && type == 2)
+	else if (check_run(phi) == 1 && type == 2)
 		printf("%lld %d has taken a fork\n", get_relative_time(phi), nb);
-	if (check_run(phi) == 1 && type == 3)
+	else if (check_run(phi) == 1 && type == 3)
 		printf("%lld %d is eating\n", get_relative_time(phi), nb);
-	if (check_run(phi) == 1 && type == 4)
+	else if (check_run(phi) == 1 && type == 4)
 		printf("%lld %d is sleeping\n", get_relative_time(phi), nb);
-	if (check_run(phi) == 1 && type == 5)
+	else if (check_run(phi) == 1 && type == 5)
 		printf("%lld %d died\n", get_relative_time(phi), nb);
 	pthread_mutex_unlock(&(phi->table->lock));
 }
