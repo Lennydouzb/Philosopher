@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 10:49:42 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/16 23:49:14 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/17 13:45:40 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	checkmax(char **av)
 {
-	if (ft_atol(av[1]) > 2147483647 || ft_atol(av[1]) <= 0)
+	if (ft_atol(av[1]) > 400 || ft_atol(av[1]) <= 0)
 		return (0);
 	if (ft_atol(av[2]) > 2147483647 || ft_atol(av[2]) <= 0)
 		return (0);

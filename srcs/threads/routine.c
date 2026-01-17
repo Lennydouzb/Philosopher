@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 16:39:46 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/16 23:56:18 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/17 12:55:32 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,20 +75,20 @@ static void	*routine(void *arg)
 	while (check_run(((t_philo *)arg)) == 1)
 	{
 		if (((t_philo *)arg)->nb % 2 == 0)
-			better_sleep(((t_philo *)arg), 1000);
+			usleep(1000);
 		print(1, ((t_philo *)arg)->nb, ((t_philo *)arg));
 		valid = grab_forks(((t_philo *)arg));
 		if (valid == 0)
 			return (NULL);
 		print(3, ((t_philo *)arg)->nb, ((t_philo *)arg));
 		updateeat(((t_philo *)arg));
-		better_sleep(((t_philo *)arg), ((t_philo *)arg)->tte * 1000);
+		usleep(((t_philo *)arg)->tte * 1000);
 		pthread_mutex_unlock(&(((t_philo *)arg)->lfork->lock));
 		pthread_mutex_unlock(&(((t_philo *)arg)->rfork->lock));
 		if (check_run(((t_philo *)arg)))
 		{
 			print(4, ((t_philo *)arg)->nb, ((t_philo *)arg));
-			better_sleep(((t_philo *)arg), ((t_philo *)arg)->tts * 1000);
+			usleep(((t_philo *)arg)->tts * 1000);
 		}
 	}
 	return (NULL);

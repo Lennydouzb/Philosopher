@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:37:34 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/16 23:44:40 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/17 13:39:21 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	main(int ac, char **av)
 	{
 		if (checkav(av) == 0)
 		{
-			printf("Should be positive numeric, and at least one philo\n");
+			printf("Should be positive and in int range, and between 1 and");
+			printf(" 399 philosophers\n");
 			return (0);
 		}
 		ok = parser(&table, av);

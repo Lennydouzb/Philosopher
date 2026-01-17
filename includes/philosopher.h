@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:39:20 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/16 23:55:24 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/17 12:55:39 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,4 @@ long long	get_relative_time(t_philo *phil);
 void		destroy(t_table *table);
 int			ft_atol(const char *nptr);
 int			check_run(t_philo *philo);
-void		better_sleep(t_philo *philo, long long time);
 #endif

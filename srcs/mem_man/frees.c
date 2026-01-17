@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 14:36:04 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/16 19:43:33 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/17 12:48:31 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	destroy(t_table *table)
 	i = 0;
 	while (i < table->nb_philo)
 	{
-		smartdestroy(&(table->philos->lockeat));
-		smartdestroy(&(table->philos->locklasteat));
+		smartdestroy(&(table->philos[i].lockeat));
+		smartdestroy(&(table->philos[i].locklasteat));
 		++i;
 	}
 	freeforksandphilos(table->forks, table->philos);
