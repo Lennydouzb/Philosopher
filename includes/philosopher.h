@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:39:20 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/17 12:55:39 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/17 15:40:58 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 
 typedef struct s_fork
 {
-	unsigned int	nb;
 	pthread_mutex_t	lock;
 	int				valid_mutex;
 }	t_fork;

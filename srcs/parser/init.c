@@ -6,7 +6,7 @@
 /*   By: ldesboui <ldesboui@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 14:00:08 by ldesboui          #+#    #+#             */
-/*   Updated: 2026/01/17 15:27:53 by ldesboui         ###   ########.fr       */
+/*   Updated: 2026/01/17 15:41:10 by ldesboui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	init(t_philo *philos, t_fork *forks, char **arg, t_table *table)
 		forks[i].valid_mutex = pthread_mutex_init(&(forks[i].lock), NULL);
 		if (forks[i].valid_mutex != 0)
 			return ;
-		forks[i].nb = i;
 		++i;
 	}
 	i = 1;
